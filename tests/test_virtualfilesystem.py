@@ -14,7 +14,7 @@ import unittest
 from contextlib import contextmanager
 from click.testing import CliRunner
 
-from virtualfilesystem.virtualfilesystem import Directory
+from virtualfilesystem.virtualfilesystem import Directory,FileSystem
 from virtualfilesystem import cli
 
 
@@ -44,3 +44,8 @@ class TestVirtualfilesystem(unittest.TestCase):
         d.add_child('tmp1', 'xxx\nyyy\n')
         d.add_child('dir2', Directory(d, 'dir2'))
         assert len(d.get_child_list()) == 2
+
+    def test_fs(self):
+        fs = FileSystem()
+        assert fs.cd('') is False
+

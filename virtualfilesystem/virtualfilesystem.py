@@ -38,7 +38,7 @@ class Directory(object):
         return True
 
     def search(self, paths):
-        ret = self._cur
+        ret = self
         for p in paths:
             if p == '.':
                 pass
@@ -60,7 +60,7 @@ class FileSystem(object):
 
     def __init__(self):
         self._root = Directory(None, '/')
-        self._cur = _root
+        self._cur = self._root
 
     def mkdir(self, name):
         return self._cur.add_child(name, Directory(self._cur, name))
@@ -83,3 +83,6 @@ class FileSystem(object):
 
         if cur:
             self._cur = cur
+            return True
+        else:
+            return False
