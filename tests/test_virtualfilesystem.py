@@ -14,7 +14,7 @@ import unittest
 from contextlib import contextmanager
 from click.testing import CliRunner
 
-from virtualfilesystem import virtualfilesystem
+from virtualfilesystem.virtualfilesystem import Directory
 from virtualfilesystem import cli
 
 
@@ -38,3 +38,9 @@ class TestVirtualfilesystem(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
+
+    def test_directory(self):
+        d = Directory(None, '/')
+        d.add_child('tmp1', 'xxx\nyyy\n')
+        d.add_child('dir2', Directory(d, 'dir2'))
+        assert len(d.get_child_list()) == 2
