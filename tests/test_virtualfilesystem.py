@@ -48,4 +48,9 @@ class TestVirtualfilesystem(unittest.TestCase):
     def test_fs(self):
         fs = FileSystem()
         assert fs.cd('') is False
-
+        assert fs.touch('a.txt') is True
+        assert fs.touch('a.txt') is False
+        assert fs.mkdir('dir1') is True
+        assert len(fs.ls()) == 2
+        assert fs.cd('dir1') is True
+        assert len(fs.ls()) == 0
